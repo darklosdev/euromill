@@ -1,9 +1,12 @@
-import pandas as pd
 from collections import Counter
 from itertools import combinations
+import xlrd
+import pandas as pd
 
+workbook = xlrd.open_workbook('Euro Millions-archivio-estrazioni-2024.xls', ignore_workbook_corruption=True)
+df = pd.read_excel(workbook)   
 # Leggi il file Excel (modifica il nome del file se necessario)
-df = pd.read_excel('Euro Millions-archivio-estrazioni-2024.xls')  # Assicurati che il file sia nella stessa cartella
+# df = pd.read_excel('Euro Millions-archivio-estrazioni-2024.xls', engine='xlrd', ignore_workbook_corruption=True)   # Assicurati che il file sia nella stessa cartella
 
 # Supponiamo che le colonne dei numeri siano: 'N1', 'N2', 'N3', 'N4', 'N5'
 numeri_cols = ['N1', 'N2', 'N3', 'N4', 'N5']
@@ -24,7 +27,7 @@ for _, row in df[numeri_cols].iterrows():
     for ambo in combinations(coppia, 2):
         ambi[ambo] += 1
 
-print(f"\nAmmi più frequenti (esempio top 5):")
+print(f"\nAmbi più frequenti (esempio top 5):")
 for ambo, freq in ambi.most_common(5):
     print(f"{ambo}: {freq} volte")
 
@@ -41,4 +44,4 @@ for terno, freq in terni.most_common(5):
 
 # 4. Previsione della prossima estrazione (esempio: 5 numeri più frequenti)
 numeri_previsti = [num for num, _ in frequenza_numeri.most_common(5)]
-print(f"\nPrevisione basata su frequenza: {sorted(numeri_previsti)}")   
+print(f"\nPrevisione basata su frequenza: {numeri_previsti}")   
