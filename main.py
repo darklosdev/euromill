@@ -3,16 +3,17 @@ from itertools import combinations
 import xlrd
 import pandas as pd
 
-workbook = xlrd.open_workbook('Euro Millions-archivio-estrazioni-2024.xls', ignore_workbook_corruption=True)
+workbook = xlrd.open_workbook('Euro Millions-archivio-estrazioni-2020-2024.xls', ignore_workbook_corruption=True)
 df = pd.read_excel(workbook)   
 # Leggi il file Excel (modifica il nome del file se necessario)
 # df = pd.read_excel('Euro Millions-archivio-estrazioni-2024.xls', engine='xlrd', ignore_workbook_corruption=True)   # Assicurati che il file sia nella stessa cartella
 
 # Supponiamo che le colonne dei numeri siano: 'N1', 'N2', 'N3', 'N4', 'N5'
-numeri_cols = ['N1', 'N2', 'N3', 'N4', 'N5']
-
+numeri_cols = ['N1', 'N2', 'N3', 'N4', 'N5']  # Aggiungi le colonne delle stelle se necessario
+numeri_star = ['STAR1', 'STAR2']  # Colonne delle stelle
 # Estrai tutti i numeri
 tutti_numeri = df[numeri_cols].values.flatten()
+tutti_stars = df[numeri_star].values.flatten()
 
 # 1. Frequenza dei singoli numeri
 frequenza_numeri = Counter(tutti_numeri)
@@ -20,6 +21,12 @@ print("Frequenza numeri:")
 for num, freq in frequenza_numeri.most_common():
     print(f"{num}: {freq} volte")
 
+# 1. Frequenza delle stelle
+frequenza_stars = Counter(tutti_stars)
+print("Frequenza stelle:")
+for num, freq in frequenza_stars.most_common():
+    print(f"{num}: {freq} volte")
+    
 # 2. Frequenza degli ambi (coppie)
 ambi = Counter()
 for _, row in df[numeri_cols].iterrows():
@@ -43,5 +50,9 @@ for terno, freq in terni.most_common(5):
     print(f"{terno}: {freq} volte")
 
 # 4. Previsione della prossima estrazione (esempio: 5 numeri più frequenti)
-numeri_previsti = [num for num, _ in frequenza_numeri.most_common(5)]
+# numeri_previsti = [num for num, _ in frequenza_numeri.most_common(5)]
+numeri_previsti = [int(num) for num, _ in frequenza_numeri.most_common(5)]   
 print(f"\nPrevisione basata su frequenza: {numeri_previsti}")   
+
+stelle_previsti = [int(num) for num, _ in frequenza_stars.most_common(2)]   
+print(f"\nPrevisione basata su frequenza: {stelle_previsti}")   
