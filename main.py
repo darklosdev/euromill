@@ -63,4 +63,3 @@ print(f"\nPrevisione basata su frequenza stelle: {stelle_previsti}")
 for i in range(1, 2036):
     comninazione_casuale = random.sample(range(1, 51), 5) + random.sample(range(1, 13), 2)
 print(f"\nCombinazione casuale (5 numeri + 2 stelle): {comninazione_casuale}")
-
