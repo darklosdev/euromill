@@ -1,11 +1,9 @@
 from collections import Counter
 from itertools import combinations
-import xlrd
 import pandas as pd
 import random
 
-workbook = xlrd.open_workbook('Euro Millions-archivio-estrazioni-2020-2024.xls', ignore_workbook_corruption=True)
-df = pd.read_excel(workbook)   
+df = pd.read_excel('Euro Millions-archivio-estrazioni-2020-2024.xls')
 
 # Supponiamo che le colonne dei numeri siano: 'N1', 'N2', 'N3', 'N4', 'N5', 'STAR1', 'STAR2'
 numeri_cols = ['N1', 'N2', 'N3', 'N4', 'N5']  # Colonne dei numeri principali
