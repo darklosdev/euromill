@@ -2,6 +2,7 @@ from collections import Counter
 from itertools import combinations
 import pandas as pd
 import random
+import xlrd
 
 df = pd.read_excel('Euro Millions-archivio-estrazioni-2020-2024.xls')
 
